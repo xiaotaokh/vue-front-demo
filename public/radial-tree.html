@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>环形树</title>
+  <style>::-webkit-scrollbar {
+    display: none;
+  }
+
+  html, body {
+    overflow: hidden;
+    margin: 0;
+  }</style>
+</head>
+<body>
+<div id="mountNode"></div>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/
+document.body.clientHeight;</script>
+<script src="./assets/scripts/g6.js"></script>
+<script src="./assets/scripts/jquery-3.2.1.min.js"></script>
+<script src="./assets/scripts/hierarchy.js"></script>
+<script>
+  $.getJSON('./assets/data/algorithm-category.json', function (data) {
+    var graph = new G6.TreeGraph({
+      container: 'mountNode',
+      width: window.innerWidth,
+      height: window.innerHeight,
+      pixelRatio: 2,
+      linkCenter: true,
+      modes: {
+        default: [{
+          type: 'collapse-expand',
+          onChange: function onChange(item, collapsed) {
+            var data = item.get('model').data;
+            data.collapsed = collapsed;
+            return true;
+          }
+        }, 'drag-canvas', 'zoom-canvas']
+      },
+      defaultNode: {
+        size: 16
+      },
+      nodeStyle: {
+        default: {
+          fill: '#40a9ff',
+          stroke: '#096dd9'
+        }
+      },
+      edgeStyle: {
+        default: {
+          stroke: '#A3B1BF'
+        }
+      },
+      layout: function layout(data) {
+        var result = Hierarchy.dendrogram(data, {
+          direction: 'LR', // H / V / LR / RL / TB / BT
+          nodeSep: 20,
+          rankSep: 100
+        });
+        G6.Util.radialLayout(result);
+        return result;
+      }
+    });
+    graph.data(data);
+    graph.render();
+    graph.fitView();
+  });
+</script>
+</body>
+</html>

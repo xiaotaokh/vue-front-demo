@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>状态切换</title>
+  <style>::-webkit-scrollbar{display:none;}html,body{overflow:hidden;margin:0;}</style>
+</head>
+<body>
+<div id="mountNode"></div>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+<script src="./assets/scripts/g6.js"></script>
+<script>
+  var nodes = [];
+  var edges = [];
+  var centerNode = {
+    id: 'center',
+    x: 500,
+    y: 300,
+    shape: 'center-node',
+    size: 20
+  };
+  nodes.push(centerNode);
+  // 左侧添加 4 个节点
+  for (var i = 0; i < 4; i++) {
+    var id = 'left' + i;
+    nodes.push({
+      id: id,
+      x: 250,
+      y: (i + 1) * 100 + 50,
+      shape: 'leaf-node'
+    });
+    edges.push({
+      source: id,
+      target: 'center',
+      shape: 'can-running'
+    });
+  }
+
+  for (var i = 0; i < 6; i++) {
+    var _id = 'right' + i;
+    nodes.push({
+      id: _id,
+      x: 750,
+      y: i * 100 + 50,
+      shape: 'leaf-node'
+    });
+    edges.push({
+      source: 'center',
+      target: _id,
+      shape: 'can-running'
+    });
+  }
+  G6.registerNode('leaf-node', {
+    afterDraw: function afterDraw(cfg, group) {
+      group.addShape('circle', {
+        attrs: {
+          x: 0,
+          y: 0,
+          r: 5,
+          fill: cfg.color || '#666'
+        }
+      });
+    },
+    getAnchorPoints: function getAnchorPoints() {
+      return [[0, 0.5], [1, 0.5]];
+    }
+  }, 'circle');
+  // 右侧添加 6 个节点
+  G6.registerNode('center-node', {
+    afterDraw: function afterDraw(cfg, group) {
+      var r = cfg.size / 2;
+      var back1 = group.addShape('circle', {
+        zIndex: -3,
+        attrs: {
+          x: 0,
+          y: 0,
+          r: r + 10,
+          fill: 'gray',
+          opacity: 0.4
+        }
+      });
+      var back2 = group.addShape('circle', {
+        zIndex: -2,
+        attrs: {
+          x: 0,
+          y: 0,
+          r: r + 20,
+          fill: 'gray', // 为了显示清晰，随意设置了颜色
+          opacity: 0.2
+        }
+      });
+      group.sort();
+    },
+    getAnchorPoints: function getAnchorPoints() {
+      return [[0, 0.5], [1, 0.5]];
+    }
+  }, 'circle');
+  // lineDash 的差值，可以在后面提供 util 方法自动计算
+  var dashArray = [[0, 1], [0, 2], [1, 2], [0, 1, 1, 2], [0, 2, 1, 2], [1, 2, 1, 2], [2, 2, 1, 2], [3, 2, 1, 2], [4, 2, 1, 2]];
+
+  var lineDash = [4, 2, 1, 2];
+  var interval = 9;
+  G6.registerEdge('can-running', {
+    setState: function setState(name, value, item) {
+      var shape = item.get('keyShape');
+      if (name === 'running') {
+        if (value) {
+          var length = shape.getTotalLength(); // 后续 G 增加 totalLength 的接口
+          var totalArray = [];
+          for (var i = 0; i < length; i += interval) {
+            totalArray = totalArray.concat(lineDash);
+          }
+          var index = 0;
+          shape.animate({
+            onFrame: function onFrame(ratio) {
+              var cfg = {
+                lineDash: dashArray[index].concat(totalArray)
+              };
+              index = (index + 1) % interval;
+              return cfg;
+            },
+
+            repeat: true
+          }, 3000);
+        } else {
+          shape.stopAnimate();
+          shape.attr('lineDash', null);
+        }
+      }
+    }
+  }, 'cubic-horizontal');
+  var graph = new G6.Graph({
+    container: 'mountNode',
+    width: window.innerWidth,
+    height: window.innerHeight,
+    edgeStyle: {
+      default: {
+        stroke: '#b5b5b5'
+      }
+    }
+  });
+  graph.data({
+    nodes: nodes,
+    edges: edges
+  });
+  graph.render();
+  graph.fitView();
+  graph.on('node:mouseenter', function(ev) {
+    var node = ev.item;
+    var edges = node.getEdges();
+    edges.forEach(function(edge) {
+      return graph.setItemState(edge, 'running', true);
+    });
+  });
+
+  graph.on('node:mouseleave', function(ev) {
+    var node = ev.item;
+    var edges = node.getEdges();
+    edges.forEach(function(edge) {
+      return graph.setItemState(edge, 'running', false);
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,362 @@
+
+/*
+ * 主体部分公共样式
+ *    全局类的样式, 必须以 app- 作为开头
+ */
+
+/* input背景色默认是黄色 */
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+}
+
+.clearfix:after {
+  content: '.';
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+
+.app-form-line {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid #dcdfe6;
+  margin: 10px 0 25px 0;
+}
+
+.width-percent-100{
+  width: 100% !important;
+}
+
+.height-percent-50{
+  height: 50% !important;
+}
+
+.height-percent-100{
+  height: 100% !important;
+}
+
+.margin-bottom-clear {
+  margin-bottom: 0px !important;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.app-full-center {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.app-search-btn-box {
+  float: right;
+}
+
+.icon-button span {
+  position: relative;
+  top: -1px;
+  padding-left: 3px;
+}
+
+.table-header {
+  font-size: 13px;
+  color: #666666;
+  padding-right: 15px;
+  height: 36px;
+  line-height: 36px;
+  float: left;
+}
+
+/*滚动条样式--webkit*/
+
+/* 整体 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background: transparent;
+  -webkit-border-radius: 6px;
+  cursor: pointer;
+}
+
+/* 内层轨道 */
+::-webkit-scrollbar-track-piece {
+  -webkit-border-radius: 0;
+  cursor: pointer;
+}
+
+/* 滑块 */
+::-webkit-scrollbar-thumb {
+  height: 50px;
+  -webkit-border-radius: 6px;
+  outline-offset: -2px;
+  background: #cccccc;
+  border: 2px solid #cccccc;
+  cursor: pointer;
+}
+
+/* 滑块悬停 */
+::-webkit-scrollbar-thumb:hover {
+  height: 50px;
+  background: #d7d5d5;
+  border: 2px solid #d7d5d5;
+  -webkit-border-radius: 6px;
+  cursor: pointer;
+}
+
+/*滚动条样式--ie*/
+body {
+  scrollbar-face-color: #014179; /*滚动条颜色*/
+  scrollbar-highlight-color: #014179;
+  scrollbar-3dlight-color: #014179;
+  scrollbar-darkshadow-color: #014179;
+  scrollbar-Shadow-color: #014179; /*滑块边色*/
+  scrollbar-arrow-color: #014179; /*箭头颜色*/
+  scrollbar-track-color: #fefefe; /*背景颜色*/
+}
+
+/*模块外层DIV*/
+.app-page-container{
+  padding: 0 20px 20px;
+}
+
+/*模块通用表单外层样式*/
+.app-page-box{
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e8e8e8;
+  margin: 0 0 20px 0;
+  /* box-shadow: 0 3px 14px rgba(110, 127, 136, .1); */
+}
+
+.app-page-box.no-border-bottom {
+  border-bottom: none;
+}
+
+.app-page-box .app-page-box-header{
+  height: 34px;
+  line-height: 34px;
+  overflow: hidden;
+  border-bottom: 1px solid #e8e8e8;
+  background: linear-gradient(#ffffff, #f8f8f8);
+  color: #333333;
+  font-size: 13px;
+  text-align: left;
+  font-weight: 500;
+  padding: 0 10px;
+}
+
+.app-page-box .app-page-box-header.bg-white{
+  background-color: #ffffff;
+  border-bottom: none;
+  margin-top: 12px;
+}
+
+.app-page-box .app-page-box-header i{
+  padding-right: 7px;
+  font-size: 20px;
+  position: relative;
+  top: 1px;
+}
+
+.app-page-box .app-page-box-header .name{
+  position: relative;
+  top: -2px;
+}
+
+.app-page-box .app-page-box-content{
+  color: #333333;
+  font-size: 13px;
+  padding: 10px;
+  text-align: left;
+  position: relative;
+}
+
+.app-page-box .app-page-box-content .el-form .el-input--small .el-input__inner{
+  min-width: 200px;
+}
+
+.app-chart {
+  height: 100%;
+  width: 100%;
+}
+
+
+/*dialog内部表单80%宽度*/
+.app-form-80{
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+}
+
+/*详情弹窗dialog*/
+.detail-dialog-value {
+  font-size: 13px;
+  position: relative;
+  top: -1px;
+}
+
+/*所有字段模块样式*/
+.app-query-all-fields .show-hidden-btn {
+  width: 100%;
+}
+
+.app-query-all-fields .show-hidden-btn {
+  width: 100%;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.app-query-all-fields .show-hidden-btn i {
+  color: #3d9df4;
+  padding-left: 5px;
+  position: relative;
+  top: 1px;
+}
+
+/*表格查询*/
+.app-query-all-fields .table-search {
+  width: 160px;
+  float: left;
+  padding-right: 20px;
+}
+
+/*表格*/
+.app-query-all-fields .target-table {
+  width: calc(100% - 160px);
+  float: left;
+}
+
+.app-query-all-fields .target-table.target-table-full {
+  width: 100%;
+}
+
+/*表格查询checkbox样式*/
+.app-query-all-fields .el-checkbox + .el-checkbox {
+  margin-left: 0px;
+}
+
+/*表格查询搜索*/
+.app-query-all-fields .el-input__suffix-inner .iconfont {
+  font-size: 22px;
+  float: right;
+  padding-top: 4px;
+}
+
+.app-query-all-fields .el-input--small {
+  margin-bottom: 14px;
+}
+
+.app-query-all-fields .el-checkbox {
+  margin-top: 7px;
+}
+
+/*查询条件*/
+.app-search-form-left {
+  float: left;
+  width: calc(100% - 180px);
+}
+
+.app-page-target_list .search-form-right {
+  float: right;
+  width: 180px;
+  text-align: right;
+}
+
+/*icon*/
+.app-icon i{
+  color: #b9babc;
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.app-icon i.red{
+  color: #e37259;
+}
+
+.app-icon i.blue{
+  color: #49a4f3;
+}
+
+/*分页*/
+.app-pagination{
+  text-align: center;
+  margin: 10px auto;
+}
+
+/* 导出按钮的描述文字 */
+.app-page-export-description {
+  padding-left: 10px;
+  font-size: 12px;
+}
+
+/* 事件信息-事件统计 */
+.page-event-statistics {
+  margin-bottom: 20px;
+}
+
+.page-event-statistics .grid-content {
+  width: 100%;
+  height: 110px;
+  overflow: hidden;
+  border-radius: 2px;
+  border: 1px solid #e8e8e8;
+  position: relative;
+}
+
+.page-event-statistics .grid-content .img {
+  width: 97px;
+  height: 110px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.page-event-statistics .grid-content .total {
+  color: #ffffff;
+  font-size: 40px;
+  font-weight: 500;
+  text-align: center;
+  margin: 22px 0 12px 0;
+  color: red;
+}
+
+.page-event-statistics .grid-content .total.green {
+  color: #55ce63;
+}
+
+.page-event-statistics .grid-content .name {
+  color: #ffffff;
+  font-size: 14px;
+  text-align: center;
+  color: #000000;
+}
+
+.page-event-statistics .grid-content.bg-blue {
+  background-color: #009efb;
+}
+
+.page-event-statistics .grid-content.bg-purple {
+  background-color: #7460ee;
+}
+
+.page-event-statistics .grid-content.bg-green {
+  background-color: #55ce63;
+}
+
+.page-event-statistics .grid-content.bg-orange {
+  background-color: #ffbc34;
+}
+
+.page-event-statistics .grid-content.bg-white {
+  background-color: #ffffff;
+}
+
+html, body {
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  height: 100%;
+  width: 100%;
+  min-width: 1250px;
+}
+
